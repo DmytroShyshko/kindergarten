@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" id="page" ng-app="app">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Main page</title>
+		<base href="/">
+		
+		<!-- Bootstrap -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/css/main.css" rel="stylesheet">
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script src="/js/angular-route.js"></script>
+		<script src="/js/app.js"></script>
+		<script src="/js/locale.js"></script>
+		<script src="/js/user.js"></script>
+	</head>
+	<body ng-controller="LocalCtrl">
+		<!-- Modal -->
+		<div ng-controller="UserCtrl" class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">{{local.enterData}}</h4>
+					</div>
+					<div class="modal-body">
+						<form role="form">
+							<div class="form-group">
+								<label class="control-label" for="loginEmail">{{local.email}}</label>
+								<input ng-model="form.email" type="email" class="form-control" id="loginEmail" required="required">
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="loginPassword">{{local.password}}</label>
+								<input ng-model="form.password" type="password" class="form-control" id="loginPassword" required="required">
+							</div>
+							<div class="checkbox">
+								<label>
+									<input ng-model="form.rememberMe" type="checkbox"> {{local.rememberMe}}
+								</label>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button ng-click="login()" type="button" class="btn btn-primary log" id="login_but">{{local.enter}}</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">{{local.close}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Modal -->
+		<div ng-controller="UserCtrl" class="modal fade" id="register_modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="ModalLabel">{{local.enterData}}</h4>
+					</div>
+					<div class="modal-body">
+						<form role="form">
+							<div class="form-group">
+								<label class="control-label" for="registerLogin">{{local.name}}</label>
+								<input ng-model="form.login" type="text" class="form-control" id="registerLogin" required="required" pattern="[A-Za-z]{1,}">
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="registerEmail">{{local.email}}</label>
+								<input ng-model="form.email" type="email" class="form-control" id="registerEmail" required="required">
+							</div>
+							<div class="form-group">
+								<label class="control-label" for="registerPassword">{{local.password}}</label>
+								<input ng-model="form.password" type="password" class="form-control" id="registerPassword" required="required">
+							</div>
+							<div class="checkbox">
+								<label>
+									<input ng-model="form.rememberMe" type="checkbox"> {{local.rememberMe}}
+								</label>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button ng-click="register()" type="button" class="btn btn-primary log" id="register_but">{{local.enter}}</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">{{local.close}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<header>
+			<nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+				<div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<div class="visible-xs-block navbar-brand">
+							Menu generator
+						</div>
+					</div>
+					<!-- Collection of nav links and other content for toggling -->
+					<div id="navbarCollapse" class="collapse navbar-collapse">
+						<ul ng-controller="NavCtrl" class="nav navbar-nav">
+							<li ng-click="setView('generate')" class="{{isActive('generate') ? 'active' : ''}}"><a href="#">{{local.Generate}}</a></li>
+							<li ng-click="setView('all')" class="{{isActive('all') ? 'active' : ''}}"><a href="#">{{local.See_all}}</a></li>
+							<li ng-click="setView('build')" class="{{isActive('build') ? 'active' : ''}}"><a href="#">{{local.Build}}</a></li>
+						</ul>
+						<ul ng-controller="UserCtrl" class="nav navbar-nav navbar-right">
+							<li ng-if="!user.isLogin"><a href="#" data-toggle="modal" data-target="#register_modal">{{local.register}}</a></li>
+							<li ng-if="!user.isLogin"><a href="#" data-toggle="modal" data-target="#login_modal">{{local.login}}</a></li>
+							<li ng-if="user.isLogin"><p class="navbar-text">{{user.data.login}}</p></li>
+							<li ng-if="user.isLogin" ng-click="logout()"><a href="">{{local.logout}}</a></li>
+							<li class="dropdown">
+								<a href="" data-toggle="dropdown" class="dropdown-toggle">
+									{{local.getLang()| uppercase}} 
+								</a>
+								<ul class="dropdown-menu dropdown_mod text-center">
+									<li><a ng-click="local.setLang('ua')" href="">UA</a></li>
+									<li><a ng-click="local.setLang('ru')" href="">RU</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+		
+		<main>
+			<div ng-view></div>
+		</main>
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/main.js"></script>
+	</body>
+</html>																	

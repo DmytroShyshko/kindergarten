@@ -1,0 +1,38 @@
+main {
+	position: relative;
+	top: 60px;
+	margin: 10px;
+}
+
+.vertical-scroll {
+	overflow: auto;
+	height: 760px;
+}
+
+.vertical-scroll2 {
+	overflow: auto;
+	height: 600px;
+}
+
+.block20 {
+	display: block;
+	height: 20px;
+}
+
+.block50 {
+	height:50px;
+	width:100%
+}
+
+.modh0 {
+	margin-top: 0px;
+}
+
+.modh9 {
+	margin-bottom: 9px;
+}
+
+.dropdown_mod {
+	min-width: 60px !important;
+	width: 60px !important;
+}
