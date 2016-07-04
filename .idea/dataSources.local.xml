@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - menu@localhost" uuid="ee10e952-c7ef-4585-b39f-f5cf1534fec6">
+      <secret-storage>memory</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>menu.*</schema-pattern>
+      <default-schemas>menu.*</default-schemas>
+    </data-source>
+  </component>
+</project>
